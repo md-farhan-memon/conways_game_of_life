@@ -1,20 +1,20 @@
 class WorldController < ApplicationController
-  # before_action :set_population, only: [:playground]
-  before_action :init, only: [:index, :start, :clear]
-  def home
-  end
+  include OverriddenMethods
+  before_action :set_grid, only: %i[playground start clear]
+  before_action :initialize_grid, only: %i[clear playground]
+  before_action :set_population, only: %i[playground]
 
-  def index
-    @@life = World.new(@size)
+  def home; end
+
+  def clear; end
+
+  def playground
+    @grid = @@life.grid
   end
 
   def start
-    @@life.load game_params[:cells].values.map{ |arr| arr.map(&:to_i) } if game_params[:load] == 'true'
+    @@life.load(game_params[:cells].values.map { |arr| arr.map(&:to_i) }) if game_params[:load].true?
     @grid = @@life.tick
-  end
-
-  def clear
-    @@life = World.new(@size)
   end
 
   private
@@ -25,7 +25,16 @@ class WorldController < ApplicationController
     game_params.permit!
   end
 
-  def init
-    @size = 12
+  def set_grid
+    @size = GRID_SIZE
+  end
+
+  def initialize_grid
+    @@life = World.new(@size)
+  end
+
+  def set_population
+    return unless params[:pattern] && (pattern = PATTERNS[params[:pattern]]).present?
+    @@life.load(pattern.map { |arr| arr.map(&:to_i) })
   end
 end

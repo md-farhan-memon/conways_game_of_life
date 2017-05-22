@@ -11,12 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
 
 $(function(){
   $(document.body).on('click', '#run', function(e){
+    $('.clear').fadeIn();
+    // $('.clear').removeAttr('display');
     var load = true;
     var count = 1;
 
@@ -41,7 +44,7 @@ $(function(){
       setTimeout(function(){
         load = false;
         loop();
-     }, 600); 
+     }, 700); 
     }());
   });
 });
@@ -49,6 +52,7 @@ $(function(){
 $(function(){
   $(document.body).on('click', '.cell', function(){
     $('.clear').fadeIn();
+    $('.clear').removeAttr('display');
     $('#run').removeClass('disabled');
     if(!$(this).hasClass("active")) {
       $(this).addClass("active");

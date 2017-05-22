@@ -2,13 +2,16 @@ doctype html
 html
   head
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    = stylesheet_link_tag    'normalize', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag    'animate', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = csrf_meta_tags
-  body
+      title= full_title(yield(:title))
+      = stylesheet_link_tag    'normalize', media: 'all', 'data-turbolinks-track': 'reload'
+      = stylesheet_link_tag    'animate', media: 'all', 'data-turbolinks-track': 'reload'
+      = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+      = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+      = csrf_meta_tags
+  body style='text-align:center;padding-bottom: 70px'
+    = render partial: 'layouts/header'
     .container
       .row
         .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2
           = yield
+    = render partial: 'layouts/footer'
