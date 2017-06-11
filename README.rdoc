@@ -1,0 +1,20 @@
+= README
+
+This is my implementation of Conway's Game of Life
+
+it is also hosted on heroku for live demo: https://conways-game-of-life-rails.herokuapp.com
+
+=== Setup:
+
+* Clone/download the repository
+
+* run <tt>bundle install</tt>
+* run <tt>rails server</tt> to start the local server
+
+=== Features:
+
+* 10 Standard Life Patterns pre-built to click-and-run them directly
+* Blank Canvas of 12x12 grid size available to create your own pattern and run the same.
+* Responsive
+
+== Browse and feel free to fork, comment and report bugs

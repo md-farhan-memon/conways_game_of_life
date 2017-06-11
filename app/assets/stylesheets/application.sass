@@ -33,7 +33,7 @@ body
 .cell
   cursor: pointer
   background: #FFF
-  height: 54px
+  height: 27px
   margin-bottom: 4px
   color: #444
   position: relative
@@ -48,8 +48,8 @@ body
   background: #000000
 
 .clear
-  position: fixed
-  top: 60px
+  position: absolute
+  top: -45px
   right: 10px
   color: #000000
   cursor: pointer
@@ -120,3 +120,7 @@ footer
 
   .text-muted
     font-size: 0.8em
+
+@media screen and (min-width: 1000px)
+  .cell
+    height: 54px
