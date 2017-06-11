@@ -16,20 +16,11 @@ class World
               column.map.with_index do |cell, y|
                 if cell.dead?
                   count_neighbors([x, y]) == 3 ? born : dead
-                else
-                  count_neighbors([x, y]).between?(2, 3) ? born : dead
+                elsif cell.alive?
+                  count_neighbors([x, y]).between?(2, 3) ? lives : dies
                 end
               end
             end
-  end
-
-  private
-
-  def count_neighbors(cell)
-    NEIGHBOURS.values.map { |neighbor| cell.zip(neighbor).map { |v| v.reduce(:+) } }.select do |neighbor|
-      neighbor = neighbor.map { |n| n.negative? ? (grid_size - born) : n > (grid_size - 1) ? dead : n }
-      grid[neighbor.first][neighbor.last].nonzero?
-    end.length
   end
 
   def dead
@@ -40,4 +31,16 @@ class World
     1
   end
 
+  alias dies dead
+  alias lives born
+  private :dead, :born
+
+  private
+
+  def count_neighbors(cell)
+    NEIGHBOURS.values.map { |neighbor| cell.zip(neighbor).map { |v| v.reduce(:+) } }.select do |neighbor|
+      neighbor = neighbor.map { |n| n.negative? ? (grid_size - born) : n > (grid_size - 1) ? dead : n }
+      grid[neighbor.first][neighbor.last].nonzero?
+    end.length
+  end
 end

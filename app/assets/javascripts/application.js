@@ -19,10 +19,8 @@ document.addEventListener("turbolinks:load", function() {
   $(function(){
     $(document.body).on('click', '#run', function(e){
       $('.clear').fadeIn();
-      // $('.clear').removeAttr('display');
       var load = true;
       var count = 1;
-
       var cells = [];
       $('.active').each(function(){
         var col = parseInt($(this).attr('col'));
@@ -37,8 +35,7 @@ document.addEventListener("turbolinks:load", function() {
           window.clear = false;
           return false;
         }
-
-        $.post('/start', {load: load, cells: cells});
+        $.post('/world/start', {load: load, cells: cells});
         $('#run').addClass('disabled').text(count);
         count ++;
         setTimeout(function(){
@@ -66,7 +63,7 @@ document.addEventListener("turbolinks:load", function() {
     $(document.body).on('click', '.clear', function(){
       $(this).fadeOut();
       window.clear = true;
-      $.post('/clear', {});
+      $.post('/world/clear', {});
     });
   });
 })
