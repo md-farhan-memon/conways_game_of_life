@@ -8,16 +8,16 @@ class World
   end
 
   def load(cells)
-    cells.each { |x, y| grid[x][y] = 1 }
+    cells.each { |x, y| grid[x][y] = born }
   end
 
   def tick
     @grid = @grid.map.with_index do |column, x|
               column.map.with_index do |cell, y|
                 if cell.dead?
-                  count_neighbors([x, y]) == 3 ? born : dead
+                  should_take_birth?(x, y) ? born : dead
                 elsif cell.alive?
-                  count_neighbors([x, y]).between?(2, 3) ? lives : dies
+                  should_live?(x, y) ? lives : dies
                 end
               end
             end
@@ -33,9 +33,17 @@ class World
 
   alias dies dead
   alias lives born
-  private :dead, :born
+  private :dies, :dead, :lives, :born
 
   private
+
+  def should_take_birth?(x, y)
+    count_neighbors([x, y]) == 3
+  end
+
+  def should_live?(x, y)
+    count_neighbors([x, y]).between?(2, 3)
+  end
 
   def count_neighbors(cell)
     NEIGHBOURS.values.map { |neighbor| cell.zip(neighbor).map { |v| v.reduce(:+) } }.select do |neighbor|

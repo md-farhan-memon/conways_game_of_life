@@ -13,7 +13,7 @@ class WorldController < ApplicationController
   end
 
   def start
-    @@life.load(game_params[:cells].values.map { |arr| arr.map(&:to_i) }) if game_params[:load].true?
+    @@life.load(game_params[:cells].each_value.map { |arr| arr.map(&:to_i) }) if game_params[:load].true?
     @grid = @@life.tick
   end
 
